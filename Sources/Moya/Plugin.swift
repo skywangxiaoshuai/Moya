@@ -15,6 +15,8 @@ public protocol PluginType {
 
     /// Called after a response has been received, but before the MoyaProvider has invoked its completion handler.
     func didReceive(_ result: Result<Moya.Response, MoyaError>, target: TargetType)
+    
+    func customReceive(_ response: HTTPURLResponse?, _ request: URLRequest?, _ data: Data?, _ error: Swift.Error?)
 
     /// Called to modify a result before completion.
     func process(_ result: Result<Moya.Response, MoyaError>, target: TargetType) -> Result<Moya.Response, MoyaError>
@@ -25,6 +27,8 @@ public extension PluginType {
     func willSend(_ request: RequestType, target: TargetType) { }
     func didReceive(_ result: Result<Moya.Response, MoyaError>, target: TargetType) { }
     func process(_ result: Result<Moya.Response, MoyaError>, target: TargetType) -> Result<Moya.Response, MoyaError> { result }
+    func customReceive(_ response: HTTPURLResponse?, _ request: URLRequest?, _ data: Data?, _ error: Swift.Error?) { }
+
 }
 
 /// Request type used by `willSend` plugin function.
